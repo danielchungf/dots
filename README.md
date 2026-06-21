@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# dots
 
-## Getting Started
+A personal field guide — a full-screen map where every pin is a place I've been. Tap a pin and it flies in, showing the place, the date, and a note.
 
-First, run the development server:
+Flat, elegant, "Ink & bone" (warm off-white + charcoal). Light by default; dark mode follows your system.
+
+## Tech
+
+- [Next.js 16](https://nextjs.org) (App Router, TypeScript)
+- [MapLibre GL JS](https://maplibre.org) — open-source map renderer
+- [CARTO basemaps](https://carto.com/basemaps/) (Positron / Dark Matter) — free, no API key
+- Tailwind CSS v4
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Adding a place
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Edit [`src/data/places.ts`](src/data/places.ts) — copy a block and change the values:
 
-## Learn More
+```ts
+{
+  id: "barcelona",
+  name: "Barcelona",
+  country: "Spain",
+  lng: 2.1734,   // longitude (in Google Maps, the 2nd number)
+  lat: 41.3851,  // latitude  (the 1st number)
+  date: "Summer 2025",
+  note: "...",
+},
+```
 
-To learn more about Next.js, take a look at the following resources:
+The map auto-frames every pin, so a new place just shows up.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+  app/            Next.js app router + global styles (Ink & bone palette)
+  components/
+    TripMap.tsx   the map, markers, dark-mode swap, fly-to
+    TripCard.tsx  the card shown when you tap a pin
+  data/
+    places.ts     <- your trips (the file you'll edit most)
+  lib/
+    mapStyle.ts   basemap style URLs (swap for a custom style later)
+```
 
-## Deploy on Vercel
+## Custom basemap
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The map currently uses CARTO's free basemaps. To make it truly your own, build a style in [MapTiler](https://www.maptiler.com) and swap the two URLs in [`src/lib/mapStyle.ts`](src/lib/mapStyle.ts) — nothing else changes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Attribution
+
+Map data is © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors, served via CARTO. That credit is required by their license and stays on the map.
