@@ -1,31 +1,28 @@
 @import "tailwindcss";
 
-/* Ink & bone — light theme (the default) */
+/* ── Color tokens (dark — the only theme) ──────────────────────── */
 :root {
-  --bone: #f3f0e8;
-  --ink: #2b2a28;
-  --muted: #6f6b63;
-  --card-bg: #f4f1ea;
-  --card-border: rgba(0, 0, 0, 0.1);
-  --card-eyebrow: #8a857c;
-  --card-body: #403d38;
-  --pin: #2b2a28;
-  --pin-ring: rgba(243, 240, 232, 0.95);
-}
+  color-scheme: dark; /* dark browser UI: scrollbars, form controls */
 
-/* Ink & bone — dark theme (follows the OS setting automatically) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bone: #15140f;
-    --ink: #ece9e1;
-    --muted: #9a958c;
-    --card-bg: #211f1a;
-    --card-border: rgba(255, 255, 255, 0.12);
-    --card-eyebrow: #8f897e;
-    --card-body: #c7c3b9;
-    --pin: #f3f0e8; /* light dot reads on the dark basemap */
-    --pin-ring: rgba(15, 14, 11, 0.92);
-  }
+  /* Surfaces & text */
+  --background:  #0c0c0c; /* page background */
+  --text:        #fcfaf2; /* primary text */
+  --text-muted:  #91989f; /* secondary text */
+  --card:        #1c1c1c; /* card panel background */
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-label:  #787d7b; /* card eyebrow / labels */
+  --card-text:   #bdc0ba; /* card body text */
+
+  /* Map dots */
+  --dot:         #e0b51c; /* map dot color */
+  --dot-ring:    rgba(12, 12, 12, 0.92); /* map dot halo */
+
+  /* Accents — for category-colored pins / highlights (not used yet) */
+  --red:    #cb1b45;
+  --purple: #8b81c3;
+  --orange: #e2943b;
+  --green:  #5dac81;
+  --yellow: #ffb11b;
 }
 
 @theme inline {
@@ -38,20 +35,20 @@ body {
 }
 
 body {
-  background: var(--bone);
-  color: var(--ink);
+  background: var(--background);
+  color: var(--text);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Location pin — a dot ringed so it reads on either basemap. This is your
-   pin layer, fully separate from the basemap style. */
+/* Map dot — a small dot ringed so it reads on the basemap. This is your
+   dot layer, fully separate from the basemap style. */
 .dot {
-  width: 11px;
-  height: 11px;
+  width: 5px;
+  height: 5px;
   border-radius: 9999px;
-  background: var(--pin);
+  background: var(--dot);
   box-shadow:
-    0 0 0 3px var(--pin-ring),
+    0 0 0 1.5px var(--dot-ring),
     0 1px 2px rgba(0, 0, 0, 0.28);
   cursor: pointer;
   transition: transform 0.18s ease;
@@ -74,20 +71,10 @@ body {
    it quiet: small, muted, semi-transparent, tucked in the corner. */
 .maplibregl-ctrl-attrib {
   font-size: 10px !important;
-  background: rgba(255, 255, 255, 0.55) !important;
+  background: rgba(20, 20, 18, 0.5) !important;
   border-radius: 6px !important;
 }
 .maplibregl-ctrl-attrib,
 .maplibregl-ctrl-attrib a {
-  color: rgba(0, 0, 0, 0.4) !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  .maplibregl-ctrl-attrib {
-    background: rgba(20, 20, 18, 0.5) !important;
-  }
-  .maplibregl-ctrl-attrib,
-  .maplibregl-ctrl-attrib a {
-    color: rgba(255, 255, 255, 0.45) !important;
-  }
+  color: rgba(255, 255, 255, 0.45) !important;
 }
