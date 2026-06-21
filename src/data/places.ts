@@ -14,6 +14,11 @@ export type Place = {
   lat: number; // latitude  (north–south)
   date: string; // freeform label, e.g. "April 2026" or "Home"
   note: string; // a line or two of memory
+
+  // Optional neighborhood outline. A rough closed loop of [lng, lat] points
+  // (eyeballed, not survey-grade) drawn as a dashed highlight instead of a dot.
+  // The loop auto-closes, so you don't need to repeat the first point.
+  boundary?: [number, number][];
 };
 
 export const places: Place[] = [
@@ -82,11 +87,32 @@ export const places: Place[] = [
   },
   {
     id: "dc",
-    name: "Washington",
-    country: "United States",
-    lng: -77.0369,
-    lat: 38.9072,
+    name: "Adams Morgan",
+    country: "Washington, DC",
+    lng: -77.0421, // 18th & Columbia Rd NW — the heart of the neighborhood
+    lat: 38.9215,
     date: "Now",
-    note: "Where Danny & Cami live.",
+    note: "Home. Where Danny & Cami live — zoom in to see the neighborhood.",
+    // Rough outline of Adams Morgan (Rock Creek to the west, 16th St to the
+    // east, Florida Ave to the south, Calvert St to the north). Eyeballed.
+    boundary: [
+      [-77.049, 38.9248],
+      [-77.0405, 38.9262],
+      [-77.0358, 38.925],
+      [-77.0352, 38.9205],
+      [-77.0366, 38.9168],
+      [-77.0428, 38.9158],
+      [-77.0476, 38.9172],
+      [-77.0498, 38.9208],
+    ],
+  },
+  {
+    id: "home",
+    name: "Home",
+    country: "Washington, DC",
+    lng: -77.036006, // 2651 16th Street NW (geocoded)
+    lat: 38.92458,
+    date: "Now",
+    note: "2651 16th Street NW.",
   },
 ];
